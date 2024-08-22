@@ -11,12 +11,13 @@
       :required="required"
       :autocomplete="autocomplete"
     />
+    <ErrorMessage :message="errorMessage[0]" v-if="errorMessage" />
   </div>
 </template>
 
-
 <script setup>
 import { defineProps, defineEmits } from 'vue';
+import ErrorMessage from '@/Components/ErrorMessage.vue';
 
 const props = defineProps({
   id: String,
@@ -39,6 +40,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  errorMessage: Array
 });
 
 const emit = defineEmits(['update:modelValue']);
@@ -110,6 +112,10 @@ function updateValue(value) {
 .form-check>.form-check-input:checked {
   background-color: var(--primary);
   border: none;
+}
+
+.is-invalid {
+  border-color: #f44336b2!important;
 }
 
 </style>
