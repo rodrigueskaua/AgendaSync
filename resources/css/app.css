@@ -1,1 +1,21 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
+
+* {
+  font-family: "Figtree", sans-serif;
+}
+
+body {
+  background-color: var(--primary);
+}
+
+:root {
+  --primary: #828FFF;
+  --primary-dark: #5963c5;
+  --black: #18181a;
+  --gray-1: #d3d4db;
+  --gray-2: #788190;
+  --white: #f5f5f5;
+  --btn-transition: .15s;
+  --btn-scale: 1.025;
+  --transition: background-color 0.20s ease-in-out;
+}
