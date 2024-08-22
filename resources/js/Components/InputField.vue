@@ -80,10 +80,6 @@ function updateValue(value) {
   transition: border-color 0.3s linear;
 }
 
-.form-group>.form-control[type="password"]:not(:placeholder-shown) {
-  padding-top: 15px;
-}
-
 .form-group>.form-control:focus {
   border-color: var(--primary);
 }

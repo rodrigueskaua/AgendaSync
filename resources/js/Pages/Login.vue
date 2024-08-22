@@ -1,6 +1,6 @@
 <template>
   <div class="container d-flex justify-content-center align-items-sm-center align-items-start vh-100 mt-sm-0 mt-3">
-    <div class="card-login-register card-login shadow-sm">
+    <div class="card-login-register card-login">
       <div class="brand mb-4 d-flex justify-content-center align-items-center">
         <h3>AgendaSync</h3>
       </div>
