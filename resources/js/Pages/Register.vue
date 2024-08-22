@@ -1,3 +1,18 @@
+<script setup>
+import { useForm } from '@inertiajs/vue3';
+
+const formData = useForm({
+  name: '',
+  email: '',
+  password: '',
+  password_confirmation: '',
+});
+
+const createUser = () => {
+  formData.post(route('user.create'));
+};
+</script>
+
 <template>
   <div class="container d-flex justify-content-center align-items-sm-center align-items-start vh-100 mt-sm-0 mt-3">
     <div class="card-login-register card-register">
@@ -5,7 +20,7 @@
         <h3>AgendaSync</h3>
       </div>
   
-      <form class="form" @submit.prevent="handleRegister" method="post">
+      <form class="form" @submit.prevent="createUser" method="post">
         <InputField
           label="Nome"
           type="text"
@@ -54,6 +69,7 @@
   </div>
   </template>
   
+  
 <script>
 import InputField from '@/Components/InputField.vue';
 
@@ -61,22 +77,7 @@ export default {
   name: 'Register',
   components: {
     InputField,
-  },
-  data() {
-    return {
-      formData: {
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-      },
-    };
-  },
-  methods: {
-    handleRegister() {
-      console.log('Form Data:', this.formData);
-    },
-  },
+  }
 };
 </script>
 
