@@ -1,5 +1,6 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
 
 const formData = useForm({
   name: '',
@@ -8,8 +9,17 @@ const formData = useForm({
   password_confirmation: '',
 });
 
+const errors = ref({});
+
 const createUser = () => {
-  formData.post(route('user.create'));
+  formData.post(route('user.create'), {
+    onSuccess: () => {
+      errors.value = {};
+    },
+    onError: (validationErrors) => {
+      errors.value = validationErrors;
+    },
+  });
 };
 </script>
 
@@ -27,6 +37,8 @@ const createUser = () => {
           name="name"
           placeholder="Digite seu Nome"
           v-model="formData.name"
+          :errorMessage="errors.name"
+          :invalid="!!errors.name"
           required
         />
   
@@ -36,6 +48,8 @@ const createUser = () => {
           name="email"
           placeholder="Digite seu Email"
           v-model="formData.email"
+          :errorMessage="errors.email"
+          :invalid="!!errors.email"
           required
         />
   
@@ -45,6 +59,8 @@ const createUser = () => {
           name="password"
           placeholder="Digite sua Senha"
           v-model="formData.password"
+          :errorMessage="errors.password"
+          :invalid="!!errors.password"
           required
         />
   
@@ -54,6 +70,8 @@ const createUser = () => {
           name="password_confirmation"
           placeholder="Digite sua Senha novamente"
           v-model="formData.password_confirmation"
+          :errorMessage="errors.password_confirmation"
+          :invalid="!!errors.password_confirmation"
           required
         />
   
@@ -72,6 +90,7 @@ const createUser = () => {
   
 <script>
 import InputField from '@/Components/InputField.vue';
+import { useForm } from '@inertiajs/vue3';
 
 export default {
   name: 'Register',

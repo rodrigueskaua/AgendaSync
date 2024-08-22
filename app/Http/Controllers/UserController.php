@@ -16,10 +16,22 @@ class UserController extends Controller
       'name' => 'required|string|max:255',
       'email' => 'required|string|email|max:255|unique:users',
       'password' => 'required|string|min:8|confirmed',
+    ], [
+      'name.required' => 'O nome é obrigatório.',
+      'name.string' => 'O nome deve ser um texto.',
+      'name.max' => 'O nome deve ter no máximo 255 caracteres.',
+      'email.required' => 'O email é obrigatório.',
+      'email.email' => 'O email deve ser um endereço válido.',
+      'email.unique' => 'Já existe uma conta cadastrada com esse email.',
+      'password.required' => 'A senha é obrigatória.',
+      'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
+      'password.confirmed' => 'As senhas não conferem.',
     ]);
 
     if ($validator->fails()) {
-      return response()->json(['errors' => $validator->errors()], 422);
+      return response()->json([
+        'errors' => $validator->errors()->toArray(),
+    ], 422);
     }
 
     $user = User::create([
@@ -28,7 +40,7 @@ class UserController extends Controller
       'password' => Hash::make($request->password),
     ]);
 
-    return Inertia::render('Success', [
+    return Inertia::render('Sucess', [
       'message' => 'Usuário cadastrado com sucesso',
     ]);
   }
