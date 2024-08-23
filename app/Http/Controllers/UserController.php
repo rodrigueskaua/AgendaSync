@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -43,5 +45,29 @@ class UserController extends Controller
     return Inertia::render('Sucess', [
       'message' => 'Usuário cadastrado com sucesso',
     ]);
+  }
+  
+  public function login(Request $request)
+  {
+    $credentials = $request->only('email', 'password');    
+    $user = User::where('email', $credentials['email'])->first();
+    
+    $errors = [];
+    if (!$user) {
+        $errors['email'] = ['Não existe um usuário cadastrado com esse e-mail.'];
+    }
+
+    if ($user && !Auth::attempt($credentials)) {
+        $errors['password'] = ['Senha incorreta.'];
+    }
+
+    if (!empty($errors)) {
+        return Inertia::render('Login', [
+            'errors' => $errors
+        ]);
+    }
+
+    $request->session()->regenerate();
+    return redirect()->intended(route('home'));
   }
 }

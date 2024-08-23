@@ -28,3 +28,6 @@ Route::get('/register', function () {
 
 Route::post('/user/create',[UserController::class, 'create'])
 ->name('user.create');
+
+Route::post('login',[UserController::class, 'login'])
+->name('user.login');
