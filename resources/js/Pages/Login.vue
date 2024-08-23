@@ -1,3 +1,26 @@
+<script setup>
+import { useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
+
+const user = useForm({
+  email: '',
+  password: '',
+});
+
+const errors = ref({});
+
+const login = () => {
+  user.post(route('user.login'), {
+    onSuccess: () => {
+      errors.value = {};
+    },
+    onError: (validationErrors) => {
+      errors.value = validationErrors;
+    },
+  });
+};
+</script>
+
 <template>
   <div class="container d-flex justify-content-center align-items-sm-center align-items-start vh-100 mt-sm-0 mt-3">
     <div class="card-login-register card-login">
@@ -5,19 +28,23 @@
         <h3>AgendaSync</h3>
       </div>
 
-      <form @submit.prevent="handleSubmit" method="post" class="form">
+      <form @submit.prevent="login" method="post" class="form">
         <InputField
           id="email"
           label="Email"
           type="email"
-          v-model="email"
+          v-model="user.email"
+          :errorMessage="errors.email"
+          :invalid="!!errors.email"
           placeholder="Digite seu Email"
           required />
         <InputField
           id="password"
           label="Senha"
           type="password"
-          v-model="password"
+          v-model="user.password"
+          :errorMessage="errors.password"
+          :invalid="!!errors.password"
           placeholder="Digite sua Senha"
           required />
 
@@ -40,16 +67,8 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
+<script>
 import InputField from '@/Components/InputField.vue';
-
-const email = ref('');
-const password = ref('');
-const remember = ref(false);
-
-function handleSubmit() {
-}
 </script>
 
 <style scoped>
