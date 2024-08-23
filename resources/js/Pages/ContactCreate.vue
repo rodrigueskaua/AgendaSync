@@ -17,7 +17,7 @@ const props = defineProps({
   },
 });
 
-const isEditing = computed(() => !!props.contact);
+const isEditing = computed(() => props.contact.id !== null);
 
 const contact = useForm({
   id: props.contact?.id || '',
