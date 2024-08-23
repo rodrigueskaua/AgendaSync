@@ -10,6 +10,10 @@ class ContactBookController extends Controller
 {
   public function index()
   {
-    return Inertia::render('Home');
+    $contacts = ContactBook::all();
+    
+    return Inertia::render('Home', [
+      'contacts' => $contacts,
+    ]);
   }
 }
