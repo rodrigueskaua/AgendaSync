@@ -16,6 +16,10 @@ Route::get('/contact/create ', function () {
 Route::post('/contact/create',[ContactBookController::class, 'create'])
 ->name('contact.create');
 
+Route::put('/contact/update/{id}', [ContactBookController::class, 'update'])->name('contact.update');
+
+Route::get('/contact/update/{id}', [ContactBookController::class, 'edit'])->name('contact.edit');
+
 Route::get('/contact/{id}', [ContactBookController::class, 'show'])->name('contact.show');
 
 Route::get('/login', function () {
