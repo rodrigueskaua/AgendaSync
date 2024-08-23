@@ -5,10 +5,9 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContactBookController;
 
-Route::get('/', function () {
-    return Inertia::render('Test');
-});
+Route::get('/', [ContactBookController::class, 'index'])->name('home');
 
 Route::get('/login', function () {
   return Inertia::render('Login');
