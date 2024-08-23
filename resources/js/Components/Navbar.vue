@@ -16,6 +16,7 @@
             <NavLink href="#" text="Sobre" icon="bx-user" />
             <NavLink href="#" text="Configurações" icon="bx-cog" />
             <NavLink href="#" text="Contato" icon="bx-envelope" />
+            <NavLink :href="route('user.logout') "text="Sair | Logout" icon="bx-log-out-circle" />
           </ul>
         </div>
       </div>
