@@ -1,29 +1,61 @@
 <script setup>
+import { ref, onMounted, computed } from 'vue';
 import { useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import Navbar from '@/Components/Navbar.vue';
+import InputField from '@/Components/InputField.vue';
 
-const contact = useForm({
-  name: '',
-  email: '',
-  phone: '',
-  address: ''
+const props = defineProps({
+  contact: {
+    type: Object,
+    default: () => ({
+      id: null,
+      name: '',
+      email: '',
+      phone: '',
+      address: '',
+    }),
+  },
 });
 
-const loading = ref(false); 
+const isEditing = computed(() => !!props.contact);
+
+const contact = useForm({
+  id: props.contact?.id || '',
+  name: props.contact?.name || '',
+  email: props.contact?.email || '',
+  phone: props.contact?.phone || '',
+  address: props.contact?.address || ''
+});
+
+const loading = ref(false);
 const errors = ref({});
 
-const createContact = () => {
+const submitForm = () => {
   loading.value = true;
-  contact.post(route('contact.create'), {
-    onSuccess: () => {
-      errors.value = {};
-      loading.value = false;
-    },
-    onError: (validationErrors) => {
-      errors.value = validationErrors;
-      loading.value = false;
-    },
-  });
+
+  if (isEditing.value) {
+    contact.put(route('contact.update', {id: contact.id,}), {
+      onSuccess: () => {
+        errors.value = {};
+        loading.value = false;
+      },
+      onError: (validationErrors) => {
+        errors.value = validationErrors;
+        loading.value = false;
+      },
+    });
+  } else {
+    contact.post(route('contact.create'), {
+      onSuccess: () => {
+        errors.value = {};
+        loading.value = false;
+      },
+      onError: (validationErrors) => {
+        errors.value = validationErrors;
+        loading.value = false;
+      },
+    });
+  }
 };
 </script>
 
@@ -34,11 +66,11 @@ const createContact = () => {
     <div class="card-contact">
       <div class="card-contact-header">
         <div class="brand text-center">
-          <h3>Criar Novo Contato</h3>
+          <h3>{{ isEditing ? 'Editar Contato' : 'Criar Novo Contato' }}</h3>
         </div>
       </div>
       <div class="contact-register">
-        <form class="form" @submit.prevent="createContact">
+        <form class="form" @submit.prevent="submitForm">
           <InputField
             label="Nome"
             type="text"

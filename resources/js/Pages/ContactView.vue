@@ -63,6 +63,7 @@
 </template>
 
 <script setup>
+import { Inertia } from '@inertiajs/inertia';
 import Navbar from '@/Components/Navbar.vue';
 import { ref, defineProps, onMounted } from 'vue';
 
@@ -112,6 +113,8 @@ function emailUser() {
 }
 
 function editUser() {
+  console.log(contact)
+  Inertia.visit(route('contact.edit', {id: contact.value.id,}));
 }
 </script>
 
