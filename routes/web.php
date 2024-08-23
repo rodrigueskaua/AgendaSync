@@ -8,7 +8,15 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactBookController;
 
 Route::get('/', [ContactBookController::class, 'index'])->name('home');
-Route::get('/contact/{id}', [ContactBookController::class, 'show'])->name('show');
+
+Route::get('/contact/create ', function () {
+  return Inertia::render('ContactCreate');
+})->name('contact.register');
+
+Route::post('/contact/create',[ContactBookController::class, 'create'])
+->name('contact.create');
+
+Route::get('/contact/{id}', [ContactBookController::class, 'show'])->name('contact.show');
 
 Route::get('/login', function () {
   return Inertia::render('Login');
