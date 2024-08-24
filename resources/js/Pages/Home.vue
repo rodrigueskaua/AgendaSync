@@ -9,7 +9,16 @@
       :message="notificationMessage"
       :icon="notificationIcon" />
 
-    <ContactList :contacts="filteredContacts" />
+      <div v-if="filteredContacts.length === 0" class="alert alert-info">
+        <h4>Bem-vindo!</h4>
+        <p>Parece que você ainda não tem contatos cadastrados.</p>
+      </div>
+      
+      <div v-if="filteredContacts.length === 0" class="alert alert-info">
+        <p>Você pode adicionar novos contatos clicando no botão "Adicionar Contato" ao lado do campo de busca ou acessando o menu e selecionando "Criar Contato".</p>
+      </div>
+
+    <ContactList v-if="filteredContacts.length > 0" :contacts="filteredContacts" />
   </div>
 </template>
 
@@ -48,15 +57,11 @@ function showNotification(message, icon = 'bx bx-info-circle') {
   }, 5000);
 }
 
-console.log(props.successMessage)
-
-
 onMounted(() => {
   if (props.successMessage) {
     showNotification(props.successMessage, 'bx bx-check-circle');
   }
 });
-
 </script>
 
 <style scoped></style>
