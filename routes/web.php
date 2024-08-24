@@ -20,6 +20,8 @@ Route::put('/contact/update/{id}', [ContactBookController::class, 'update'])->na
 
 Route::get('/contact/update/{id}', [ContactBookController::class, 'edit'])->name('contact.edit');
 
+Route::delete('/contact/destroy/{id}', [ContactBookController::class, 'destroy'])->name('contact.destroy');
+
 Route::get('/contact/{id}', [ContactBookController::class, 'show'])->name('contact.show');
 
 Route::get('/login', function () {

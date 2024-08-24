@@ -7,15 +7,20 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Models\ContactBook;
 use Inertia\Inertia;
+use Session;
 
 class ContactBookController extends Controller
 {
   public function index()
-  {
+  {    
+    $successMessage = Session::get('successMessage');
+    Session::forget('successMessage');
+    
     $contacts = ContactBook::all();
 
     return Inertia::render('Home', [
       'contacts' => $contacts,
+      'successMessage' => $successMessage,
     ]);
   }
 
@@ -106,5 +111,24 @@ class ContactBookController extends Controller
 
     return redirect()->route('contact.show', ['id' => $contact->id]);
   }
+  
+  public function destroy($id)
+  {
+    $contact = ContactBook::find($id);
 
+    if (!$contact) {
+        return redirect()->back();
+    }
+
+    try {
+        $contact->delete();
+
+        Session::put('successMessage', 'Contato deletado com sucesso.');
+        return redirect()->route('contacts.index')->with('successMessage', 'Contato deletado com sucesso.');
+        } catch (\Exception $e) {
+        return redirect()->back()->withErrors([
+            'delete_error' => 'Ocorreu um erro ao tentar deletar o contato.',
+        ]);
+    }
+  }
 }
