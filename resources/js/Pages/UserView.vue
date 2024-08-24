@@ -97,7 +97,33 @@ function editUser() {
 }
 
 function deleteUser() {
-
+  Swal.fire({
+    title: 'Você tem certeza?',
+    text: 'O usuário e todos os seus contatos serão apagados. Esta ação não pode ser desfeita!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, Apagar!',
+    cancelButtonText: 'Cancelar',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: 'Tem certeza de que deseja apagar definitivamente?',
+        text: 'Esta é sua última chance de cancelar!',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, Apagar definitivamente!',
+        cancelButtonText: 'Cancelar',
+      }).then((finalResult) => {
+        if (finalResult.isConfirmed) {
+          Inertia.delete(route('user.destroy'));
+        }
+      });
+    }
+  });
 }
 </script>
 

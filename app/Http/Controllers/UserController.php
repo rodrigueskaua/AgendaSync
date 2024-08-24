@@ -99,6 +99,28 @@ class UserController extends Controller
     return redirect()->route('user.index');
   }
   
+  public function destroy(Request $request)
+  {
+    $user = User::find(auth()->id());
+
+    if (!$user) {
+        return redirect()->back();
+    }
+
+    try {
+        $user->delete();
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        
+        return redirect()->route('contacts.index')->with('successMessage', 'Contato deletado com sucesso.');
+        } catch (\Exception $e) {
+        return redirect()->back()->withErrors([
+            'delete_error' => 'Ocorreu um erro ao tentar deletar o contato.',
+        ]);
+    }
+  }
+  
   public function login(Request $request)
   {
     $credentials = $request->only('email', 'password');    
