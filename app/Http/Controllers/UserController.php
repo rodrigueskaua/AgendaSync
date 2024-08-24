@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
-use Illuminate\Validation\Rule;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -151,5 +151,43 @@ class UserController extends Controller
     $request->session()->invalidate();
     $request->session()->regenerateToken();
     return redirect(route('login'));
+  }
+  
+  public function redirectGoogle()
+  {
+      return Socialite::driver('google')->redirect();
+  }
+  
+  
+  public function callbackGoogle()
+  {
+    try {
+      $google_user = Socialite::driver('google')->user();
+      $user = User::where('google_id', $google_user->getId())->first();
+
+      if (!$user) {
+          $new_user = User::create([
+              'name' => $google_user->getName(),
+              'google_id' => $google_user->getId(),
+              'email' => $google_user->getEmail()
+          ]);
+          Auth::login($new_user);
+
+          return redirect(route('home'));
+      } else {
+          Auth::login($user);
+          return redirect(route('home'));
+      }
+    } catch (\Throwable $th) {
+      $errors = [];
+      $errors['email'] = ['Este e-mail já está em uso por outro método de autenticação. Tente o login padrão.'];
+
+      if (!empty($errors)) {
+        return Inertia::render('Login', [
+            'errors' => $errors
+        ]);
+      }
+  
+      }
   }
 }

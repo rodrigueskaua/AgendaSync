@@ -53,9 +53,8 @@ const login = () => {
           <div class="divider">
             <hr>
           </div>
-          <a href="" class="btn-google d-flex justify-content-center align-items-center">
-            <img src="" alt="Google Logo">
-            Continue com o Google
+          <a :href="route('login.google')" class="btn-google d-flex justify-content-center align-items-center">
+            <GoogleIcon/>
           </a>
         </div>
       </form>
@@ -69,6 +68,7 @@ const login = () => {
 
 <script>
 import InputField from '@/Components/InputField.vue';
+import GoogleIcon from '@/Components/GoogleIcon.vue';
 </script>
 
 <style scoped>

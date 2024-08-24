@@ -37,7 +37,10 @@ Route::middleware(['guest'])->group(function () {
   Route::get('/register', function () {
       return Inertia::render('Register');
   })->name('register');
-
+  
+  Route::get('/login/google', [UserController::class, 'redirectGoogle'])->name('login.google');
+  Route::get('/login/google/call-back', [UserController::class, 'callbackGoogle']);
+  
   Route::post('/user/create', [UserController::class, 'create'])->name('user.create');
   Route::post('login', [UserController::class, 'login'])->name('user.login');
 });
