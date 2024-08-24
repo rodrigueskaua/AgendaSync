@@ -24,7 +24,8 @@ const emitSearch = () => {
         @input="emitSearch"
       />
     </div>
-    <a 
+    <a
+      :href="route('contact.create')"
       class="btn btn-primary ms-2 btn-add-contact" 
       type="button">
       <i class='bx bx-plus'></i>
