@@ -21,6 +21,9 @@ Route::middleware(['auth'])->group(function () {
   Route::get('/contact/{id}', [ContactBookController::class, 'show'])->name('contact.show');
   
   Route::get('/profile', [UserController::class, 'index'])->name('user.index');
+  
+  Route::put('/user/update/', [UserController::class, 'update'])->name('user.update');
+  Route::get('/user/update/', [UserController::class, 'edit'])->name('user.edit');
 
   Route::get('/logout', [UserController::class, 'logout'])->name('user.logout');
 });

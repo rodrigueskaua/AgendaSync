@@ -40,9 +40,9 @@ class UserController extends Controller
     ]);
 
     if ($validator->fails()) {
-      return response()->json([
-        'errors' => $validator->errors()->toArray(),
-    ], 422);
+      return Inertia::render('Register', [
+        'errors' => $validator->errors(),
+      ]);
     }
 
     $user = User::create([
@@ -52,6 +52,51 @@ class UserController extends Controller
     ]);
 
     return redirect()->intended(route('login'));
+  }
+  
+  public function edit()
+  {
+    $user = User::find(auth()->id());
+    
+    if (!$user) {
+        return redirect()->back();
+    }
+
+    return Inertia::render('Register', [
+        'user' => $user
+    ]);
+  }
+  
+  public function update(Request $request)
+  {
+    $validator = Validator::make($request->all(), [
+      'name' => 'required|string|max:255',
+      'email' => 'required|string|email|max:255|unique:users,email,' . $request->id,
+      'password' => 'required|string|min:8|confirmed',
+    ], [
+      'name.required' => 'O nome é obrigatório.',
+      'name.string' => 'O nome deve ser um texto.',
+      'name.max' => 'O nome deve ter no máximo 255 caracteres.',
+      'email.required' => 'O email é obrigatório.',
+      'email.email' => 'O email deve ser um endereço válido.',
+      'email.unique' => 'Já existe uma conta cadastrada com esse email.',
+      'password.required' => 'A senha é obrigatória.',
+      'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
+      'password.confirmed' => 'As senhas não conferem.',
+    ]);
+    
+    $user = User::find(auth()->id());
+
+    if ($validator->fails()) {
+      return Inertia::render('Register', [
+          'user' => $user,
+          'errors' => $validator->errors(),
+      ]);
+    }
+    
+    $user->update($validator->validated());
+
+    return redirect()->route('user.index');
   }
   
   public function login(Request $request)
