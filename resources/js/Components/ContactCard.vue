@@ -1,11 +1,14 @@
 <template>
   <div class="card contact-card" @click="navigateToContact">
-    <div class="contact-icon">
+    <div class="contact-icon" v-if="isAlphabetic(contactName)">
+      <span>{{ getInitials(contactName) }}</span>
+    </div>
+    <div class="contact-icon" v-else>
       <i class='bx bx-user'></i>
     </div>
     <div class="card-body">
-      <h5 class="card-title">{{ contactName }}</h5>
-      <p class="card-text">{{ contactDetails }}</p>
+      <h5 class="card-title">{{ contactName || 'Nome não preenchido' }}</h5>
+      <p class="card-text">{{ contactDetails || 'Detalhes não preenchidos' }}</p>
     </div>
   </div>
 </template>
@@ -14,7 +17,7 @@
 const props = defineProps({
   contactName: {
     type: String,
-    default: 'Nome não preenchido',
+    default: '',
   },
   contactDetails: {
     type: String,
@@ -31,6 +34,18 @@ const navigateToContact = () => {
     window.location.href = `/contact/${props.contactId}`;
   }
 };
+
+function isAlphabetic(name) {
+  return /[a-zA-Z]/.test(name);
+}
+
+function getInitials(name) {
+  const nameParts = name.split(' ');
+  if (nameParts.length === 1) {
+    return nameParts[0].charAt(0).toUpperCase();
+  }
+  return nameParts[0].charAt(0).toUpperCase() + nameParts[1].charAt(0).toUpperCase();
+}
 </script>
 
 <style scoped>
@@ -68,6 +83,12 @@ const navigateToContact = () => {
 .contact-icon i {
   font-size: 24px;
   color:  var(--contact-icon-i);
+}
+
+.contact-icon span {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--contact-icon-i);
 }
 
 .card-body {
