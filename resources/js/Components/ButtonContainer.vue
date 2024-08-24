@@ -1,6 +1,6 @@
 <template>
   <div class="button-container">
-    <div class="grid">
+    <div :class="{'grid': buttons.length > 1}">
       <Button
         v-for="(button, index) in buttons"
         :key="index"

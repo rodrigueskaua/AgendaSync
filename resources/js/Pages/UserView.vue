@@ -43,21 +43,6 @@ import Navbar from '@/Components/Navbar.vue';
 import ButtonContainer from '@/Components/ButtonContainer.vue';
 import Swal from 'sweetalert2';
 
-const buttons = [
-  {
-    icon: 'bx bx-edit',
-    text: 'Editar',
-    buttonClass: 'btn btn-outline-primary',
-    onClick: () => { editUser() }
-  },
-  {
-    icon: 'bx bx-trash',
-    text: 'Apagar',
-    buttonClass: 'btn btn-outline-danger',
-    onClick: () => { deleteUser() }
-  }
-];
-
 import { ref, defineProps } from 'vue';
 
 const props = defineProps({
@@ -67,6 +52,7 @@ const props = defineProps({
       name: 'Nome não preenchido',
       email: 'Email não preenchido',
       created_at: new Date().toISOString(),
+      google_id: null,
     }),
   },
 });
@@ -125,6 +111,21 @@ function deleteUser() {
     }
   });
 }
+
+const buttons = [
+  ...(user.value.google_id ? [] : [{
+    icon: 'bx bx-edit',
+    text: 'Editar',
+    buttonClass: 'btn btn-outline-primary',
+    onClick: () => { editUser() }
+  }]),
+  {
+    icon: 'bx bx-trash',
+    text: 'Apagar',
+    buttonClass: 'btn btn-outline-danger',
+    onClick: () => { deleteUser() }
+  }
+];
 </script>
 
 <style scoped>
