@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+  public function index()
+  {    
+    $user = User::find(auth()->id());
+    
+    return Inertia::render('UserView', [
+      'user' => $user,
+    ]);
+  }
+  
   public function create(Request $request)
   {
     $validator = Validator::make($request->all(), [
