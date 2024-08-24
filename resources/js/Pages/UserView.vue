@@ -152,6 +152,10 @@ const buttons = [
   align-items: center;
 }
 
+.user-info-container  h3{
+  text-align: center;
+}
+
 .user-icon {
   width: 100px;
   height: 100px;

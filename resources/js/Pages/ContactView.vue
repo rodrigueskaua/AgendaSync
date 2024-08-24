@@ -159,12 +159,17 @@ function deleteUser() {
   border: var(--card-border);
   border-radius: 12px;
   box-shadow: -1px -1px 30px rgba(73, 73, 73, 0.08);
+  text-align: center;
 }
 
 .user-info {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.user-info-container  h3{
+  text-align: center;
 }
 
 .user-icon {

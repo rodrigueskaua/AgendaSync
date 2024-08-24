@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: #FFFFFF;
+  background-color: #F0F0F0;
 }
 
 :root {
@@ -19,11 +19,12 @@ body {
   --btn-scale: 1.025;
   --transition: background-color 0.20s ease-in-out;
   --card-background: #FFFFFF;
-  --card-border: 1.5px solid rgba(131, 131, 131, 0.08);
+  --card-border: 1.5px solid rgba(63, 63, 63, 0.253);
   --card-text: #666;
   --contact-icon: #e9ecef;
   --contact-icon-i: #6c757d;
   --input-background:  #F3F3F3;
+  --search-input-background:  #ffffff;
   --input-icon:  #00000083;
   --input-color:  #000000c2;
   --is-invalid-color:  #f71000bd;
@@ -44,7 +45,8 @@ body.dark-mode {
   --card-text: #dddddd;
   --contact-icon: #4d4d4d;
   --contact-icon-i: #c0c0c0;
-  --input-background:  #3d3c3c;
+  --input-background:  #36383d;
+  --search-input-background:  #3d3c3c;
   --input-icon:  #ffffffce;
   --input-color:  #ffffffea;
   --is-invalid-color:  #ff0000;

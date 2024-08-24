@@ -62,8 +62,9 @@ function goBack() {
 
 .navbar .navbar-toggler i{
   font-size: 24px;
-  font-weight: 900;
+  font-weight: 500;
   color: var(--black);
+  margin-top: 3px;
 }
 
 .content-spacer{

@@ -77,7 +77,7 @@ import GoogleIcon from '@/Components/GoogleIcon.vue';
   border-radius: 20px;
   background: var(--card-background);
   border: var(--card-border);
-  box-shadow: -1px -1px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: -1px -1px 15px rgba(0, 0, 0, 0.096);
 }
 
 .card-login {
@@ -145,7 +145,8 @@ import GoogleIcon from '@/Components/GoogleIcon.vue';
 }
 
 .form-buttons>.btn-google {
-  background: var(--black);
+  background: none;
+  border: var(--card-border);
   font-size: 14px;
   -webkit-appearance: button;
   -moz-appearance: button;
