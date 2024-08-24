@@ -73,8 +73,8 @@ export default {
 .btn-add-contact {
   background-color: var(--primary);
   font-size: 24px;
-  height: 45px;
-  padding: 10px;
+  height: 55px;
+  padding: 15px;
   border-radius: 100%;
   border: none;
   display: flex;
