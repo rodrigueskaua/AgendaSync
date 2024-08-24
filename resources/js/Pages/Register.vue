@@ -81,7 +81,7 @@ const createUser = () => {
       </form>
   
       <div class="sign-in text-center">
-        <p>Já possui uma conta? <a href="">Faça Login</a></p>
+        <p>Já possui uma conta? <a :href="route('login') ">Faça Login</a></p>
       </div>
     </div>
   </div>

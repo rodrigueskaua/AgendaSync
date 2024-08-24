@@ -61,7 +61,7 @@ const login = () => {
       </form>
 
       <div class="sign-up text-center">
-        <p>Não possui uma conta? <a href="">Cadastre-se</a></p>
+        <p>Não possui uma conta? <a :href="route('register')">Cadastre-se</a></p>
       </div>
     </div>
   </div>
