@@ -6,17 +6,24 @@
 
     <Notification
       v-if="successMessage"
-      :message="notificationMessage"
-      :icon="notificationIcon" />
+      :message="successMessage"
+      icon="bx bx-check-circle"
+      class="persistent-alert"
+    />
 
-      <div v-if="filteredContacts.length === 0" class="alert alert-info">
-        <h4>Bem-vindo!</h4>
-        <p>Parece que você ainda não tem contatos cadastrados.</p>
-      </div>
-      
-      <div v-if="filteredContacts.length === 0" class="alert alert-info">
-        <p>Você pode adicionar novos contatos clicando no botão "Adicionar Contato" ao lado do campo de busca ou acessando o menu e selecionando "Criar Contato".</p>
-      </div>
+    <Notification
+      v-if="contacts.length === 0 && !successMessage"
+      message="Parece que você ainda não tem contatos cadastrados."
+      icon="bx bx-info-circle"
+      class="persistent-alert"
+    />
+
+    <Notification
+      v-if="contacts.length === 0 && !successMessage"
+      message="Você pode adicionar novos contatos clicando no botão 'Adicionar Contato' ao lado do campo de busca ou acessando o menu e selecionando 'Criar Contato'."
+      icon="bx bx-info-circle"
+      class="persistent-alert"
+    />
 
     <ContactList v-if="filteredContacts.length > 0" :contacts="filteredContacts" />
   </div>
@@ -46,22 +53,7 @@ const filteredContacts = computed(() => {
   );
 });
 
-const notificationMessage = ref('');
-const notificationIcon = ref('bx bx-info-circle');
-
-function showNotification(message, icon = 'bx bx-info-circle') {
-  notificationMessage.value = message;
-  notificationIcon.value = icon;
-  setTimeout(() => {
-    notificationMessage.value = '';
-  }, 5000);
-}
-
-onMounted(() => {
-  if (props.successMessage) {
-    showNotification(props.successMessage, 'bx bx-check-circle');
-  }
-});
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

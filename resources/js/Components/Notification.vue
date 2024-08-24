@@ -1,35 +1,39 @@
 <template>
-  <div v-if="visible" class="notification mb-2">
-    <div class="alert alert-info" role="alert">
+  <div v-if="isVisible" class="notification" :class="className">
+    <div class="alert">
       <i :class="icon"></i>
       <span>{{ message }}</span>
+      <button class="btn-close" @click="hideNotification">×</button>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    message: {
-      type: String,
-      required: true,
-    },
-    icon: {
-      type: String,
-      default: 'bx bx-info-circle'
-    }
+<script setup>
+import { ref, watch } from 'vue';
+
+const props = defineProps({
+  message: String,
+  icon: String,
+  autoDismiss: {
+    type: Boolean,
+    default: true
   },
-  data() {
-    return {
-      visible: true,
-    };
-  },
-  mounted() {
+  className: String
+});
+
+const isVisible = ref(true);
+
+function hideNotification() {
+  isVisible.value = false;
+}
+
+watch(() => props.message, (newValue) => {
+  if (newValue && props.autoDismiss) {
     setTimeout(() => {
-      this.visible = false;
+      hideNotification();
     }, 5000);
-  },
-};
+  }
+}, { immediate: true });
 </script>
 
 <style scoped>
@@ -40,25 +44,31 @@ export default {
   justify-content: center;
 }
 
+span{
+  width: 100%;
+}
+
 .alert {
   display: flex;
   align-items: center;
-  background-color: #c8dfff;
-  border-color: #bcdff1;
-  color: #0056b3;
-  border-radius: 0;
+  background-color: var(--primary-light);
+  border: 1px solid var(--primary-dark);
+  color: var(--black);
+  border-radius: 5px;
   width: 100%;
   padding: 15px;
-  box-shadow: -1px -1px 30px rgba(73, 73, 73, 0.08);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .alert i {
   margin-right: 10px;
   font-size: 24px;
-  color: #0c5460; 
+  color: var(--primary-dark);
 }
 
 .alert .btn-close {
   filter: invert(40%);
+  color: var(--primary-dark);
+  font-size: 18px;
 }
 </style>
