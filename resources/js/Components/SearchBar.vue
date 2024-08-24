@@ -46,7 +46,7 @@ export default {
 }
 
 .input-group-text {
-  background-color: var(--input-background);
+  background-color: var(--search-input-background);
   border: none;
   border-radius: 6px 0 0 6px;
   padding: 8px 15px;
@@ -60,7 +60,7 @@ export default {
   font-size: 16px;
   border: none;
   box-shadow: none;
-  background-color: var(--input-background);
+  background-color: var(--search-input-background);
   border-radius: 0 6px 6px 0;
   color: var(--input-color);
   transition: border-color 0.3s linear;

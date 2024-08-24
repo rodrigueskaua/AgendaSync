@@ -113,16 +113,15 @@ function showTemporaryAlert(message) {
 
 function callUser() {
   showTemporaryAlert('O botão "Ligar" pode não funcionar em alguns navegadores. Em dispositivos móveis, ele pode iniciar uma chamada. Certifique-se de que você tem um aplicativo de telefone configurado.');
-  window.location.href = `tel:${contact.phone}`;
+  window.location.href = `tel:${contact.value.phone}`;
 }
 
 function emailUser() {
   showTemporaryAlert('O botão "Enviar Email" pode não funcionar em alguns navegadores. Ele abrirá o aplicativo de email padrão do dispositivo.');
-  window.location.href = `mailto:${contact.email}`;
+  window.location.href = `mailto:${contact.value.email}`;
 }
 
 function editUser() {
-  console.log(contact)
   Inertia.visit(route('contact.edit', {id: contact.value.id,}));
 }
 
@@ -160,12 +159,17 @@ function deleteUser() {
   border: var(--card-border);
   border-radius: 12px;
   box-shadow: -1px -1px 30px rgba(73, 73, 73, 0.08);
+  text-align: center;
 }
 
 .user-info {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.user-info-container  h3{
+  text-align: center;
 }
 
 .user-icon {
