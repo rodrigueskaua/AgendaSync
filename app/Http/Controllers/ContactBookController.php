@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\ContactBook;
 use Inertia\Inertia;
 use Session;
+use Illuminate\Support\Facades\Gate;
 
 class ContactBookController extends Controller
 {
@@ -16,8 +17,8 @@ class ContactBookController extends Controller
     $successMessage = Session::get('successMessage');
     Session::forget('successMessage');
     
-    $contacts = ContactBook::all();
-
+    $contacts = ContactBook::where('user_id', auth()->id())->get();
+    
     return Inertia::render('Home', [
       'contacts' => $contacts,
       'successMessage' => $successMessage,
@@ -29,6 +30,10 @@ class ContactBookController extends Controller
     try {
       $contact = ContactBook::findOrFail($id);
 
+      if (Gate::denies('view-contact', $contact)) {
+        abort(403, 'Você não tem permissão para visualizar este contato.');
+      }
+      
       return Inertia::render('ContactView', [
         'contact' => $contact,
       ]);
@@ -74,6 +79,10 @@ class ContactBookController extends Controller
   public function edit($id)
   {
     $contact = ContactBook::find($id);
+    
+    if (Gate::denies('update-contact', $contact)) {
+      abort(403, 'Você não tem permissão para atualizar este contato.');
+    }
 
     if (!$contact) {
         return redirect()->back();
@@ -108,6 +117,11 @@ class ContactBookController extends Controller
     }
     
     $contact = ContactBook::find($request->id);
+    
+    if (Gate::denies('delete-contact', $contact)) {
+      abort(403, 'Você não tem permissão para deletar este contato.');
+    }
+    
     $contact->update($validator->validated());
 
     return redirect()->route('contact.show', ['id' => $contact->id]);
