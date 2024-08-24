@@ -24,6 +24,7 @@ class ContactBookSeeder extends Seeder
               'address' => $faker->address,
               'created_at' => now(),
               'updated_at' => now(),
+              'user_id' => 1,
           ]);
       }
     }
