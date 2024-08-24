@@ -34,7 +34,7 @@ import DarkModeToggle from '@/Components/DarkModeToggle.vue';
 
 <style scoped>
 .navbar{
-  border-bottom: 0.5px solid #0000001e;
+  border-bottom: var(--card-border)
 }
 
 .navbar .navbar-brand {

@@ -15,7 +15,7 @@ const props = defineProps({
 
 <style scoped>
 .error-message {
-  color: #f44336;
+  color: var(--is-invalid-color);
   font-size: 0.875em;
   margin-top: 0.25rem;
 }

@@ -46,23 +46,23 @@ export default {
 }
 
 .input-group-text {
-  background-color: #F3F3F3;
+  background-color: var(--input-background);
   border: none;
   border-radius: 6px 0 0 6px;
   padding: 8px 15px;
   font-size: 18px;
-  color: #00000083;
+  color: var(--search-icon);
 }
 
 .form-control {
   height: 55px;
   padding: 8px 0px;
   font-size: 16px;
-  border-color: transparent;
+  border: none;
   box-shadow: none;
-  background-color: #F3F3F3;
+  background-color: var(--input-background);
   border-radius: 0 6px 6px 0;
-  color: #808080c2;
+  color: var(--input-color);
   transition: border-color 0.3s linear;
 }
 

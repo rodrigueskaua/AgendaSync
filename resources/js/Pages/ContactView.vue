@@ -62,13 +62,13 @@ const buttons = [
   {
     icon: 'bx bx-edit',
     text: 'Editar',
-    buttonClass: 'btn btn-primary',
+    buttonClass: 'btn btn-outline-primary',
     onClick: () => { editUser() }
   },
   {
     icon: 'bx bx-trash',
     text: 'Apagar',
-    buttonClass: 'btn btn-secondary',
+    buttonClass: 'btn btn-outline-danger',
     onClick: () => { deleteUser() }
   }
 ];
@@ -156,9 +156,9 @@ function deleteUser() {
   width: 100%;
   margin-bottom: 20px;
   padding: 20px;
-  background: #ffffff;
+  background: var(--card-background);
+  border: var(--card-border);
   border-radius: 12px;
-  border: 1.5px solid rgba(67, 67, 67, 0.15);
   box-shadow: -1px -1px 30px rgba(73, 73, 73, 0.08);
 }
 
@@ -171,14 +171,14 @@ function deleteUser() {
 .user-icon {
   width: 100px;
   height: 100px;
-  background-color: #e9ecef;
+  background-color: var(--contact-icon);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
   font-size: 48px;
-  color: #6c757d;
+  color: var(--contact-icon-i);
 }
 
 .user-icon span {
@@ -194,9 +194,9 @@ function deleteUser() {
 .info-container {
   width: 100%;
   padding: 20px;
-  background: #ffffff;
+  background: var(--card-background);
+  border: var(--card-border);
   border-radius: 12px;
-  border: 1.5px solid rgba(67, 67, 67, 0.15);
   box-shadow: -1px -1px 30px rgba(73, 73, 73, 0.08);
 }
 
@@ -212,28 +212,29 @@ function deleteUser() {
 
 .info-item {
   font-size: 16px;
-  color: #666;
+  color: var(--card-text);
   margin: 15px 0;
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid #dee2e6;
-  background: #ffffff;
+  border: var(--card-border);
+  background: var(--card-background);
 }
 
 .info-item:hover {
-  background: #e9ecef;
-  border-color: #ced4da;
+  transition: all .25s;
+  opacity: 0.5;
+  transform: scale(1.01);
 }
 
 .info-label {
   font-weight: bold;
-  color: #333;
+  color: var(--black);
   display: block;
   margin-bottom: 7px;
 }
 
 .info-value {
-  color: #333;
+  color: var(--gray-2);
   font-size: 16px;
   display: flex;
   align-items: center;
@@ -246,7 +247,7 @@ function deleteUser() {
 
 .status-info {
   font-size: 14px;
-  color: #888;
+  color: var(--gray-2);
   text-align: right;
   margin-top: 10px;
 }

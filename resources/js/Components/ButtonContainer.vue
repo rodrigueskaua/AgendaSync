@@ -35,13 +35,13 @@ const props = defineProps({
   display: flex;
   justify-content: center;
   align-items: center;
-  
   width: 100%;
   margin-bottom: 20px;
   padding: 20px;
-  background: #ffffff;
   border-radius: 12px;
-  border: 1.5px solid rgba(67, 67, 67, 0.15);
+  border: var(--card-border);
+  background: var(--card-background);
+  color: var(--card-text);
   box-shadow: -1px -1px 30px rgba(73, 73, 73, 0.08);
 }
 

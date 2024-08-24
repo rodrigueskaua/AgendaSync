@@ -104,7 +104,8 @@ export default {
 .card-login-register {
   width: 500px;
   border-radius: 20px;
-  background: #FFFFFF;
+  background: var(--card-background);
+  border: var(--card-border);
   box-shadow: -1px -1px 30px rgba(0, 0, 0, 0.25);
 }
 

@@ -75,7 +75,8 @@ import InputField from '@/Components/InputField.vue';
 .card-login-register {
   width: 500px;
   border-radius: 20px;
-  background: #FFFFFF;
+  background: var(--card-background);
+  border: var(--card-border);
   box-shadow: -1px -1px 30px rgba(0, 0, 0, 0.25);
 }
 
@@ -139,7 +140,7 @@ import InputField from '@/Components/InputField.vue';
 }
 
 .form-buttons>.divider {
-  background-color: #9b989800;
+  background-color: var(--hr-divider);
   margin: 20px 0px;
 }
 

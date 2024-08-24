@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: var(--primary);
+  background-color: #FFFFFF;
 }
 
 :root {
@@ -18,4 +18,85 @@ body {
   --btn-transition: .15s;
   --btn-scale: 1.025;
   --transition: background-color 0.20s ease-in-out;
+  --card-background: #FFFFFF;
+  --card-border: 1.5px solid rgba(131, 131, 131, 0.08);
+  --card-text: #666;
+  --contact-icon: #e9ecef;
+  --contact-icon-i: #6c757d;
+  --input-background:  #F3F3F3;
+  --input-icon:  #00000083;
+  --input-color:  #000000c2;
+  --is-invalid-color:  #f71000bd;
+  --hr-divider:  #9b989800;
+  --transition-btn: all .25s;
+}
+
+body.dark-mode {
+  background-color: #1F2125;
+  --primary: #66BAFF;
+  --primary-dark: #2f7c9c;
+  --black: #ffffff; 
+  --gray-1: #788190;
+  --gray-2: #d3d4db;
+  --white: #18181a;
+  --card-background: #23262C;
+  --card-border: 1.5px solid hsla(0, 0%, 100%, 0.137);
+  --card-text: #dddddd;
+  --contact-icon: #4d4d4d;
+  --contact-icon-i: #c0c0c0;
+  --input-background:  #3d3c3c;
+  --input-icon:  #ffffffce;
+  --input-color:  #ffffffea;
+  --is-invalid-color:  #ff0000;
+  --hr-divider:  #ffffff4b;
+}
+
+.swal2-container {
+  background-color: var(--card-background) !important;
+}
+
+.swal2-popup {
+  background-color: var(--card-background) !important;
+  color: var(--card-text) !important;
+}
+
+.swal2-title {
+  color: var(--black) !important;
+}
+
+.swal2-html-container {
+  color: var(--card-text) !important;
+}
+
+.swal2-confirm, .swal2-cancel {
+  background-color: var(--primary) !important;
+  border: none !important;
+  color: var(--white) !important;
+}
+
+.swal2-cancel {
+  background-color: var(--gray-2) !important;
+}
+
+.swal2-icon.swal2-warning {
+  border: 4px solid var(--primary) !important;
+  background-color: var(--card-background) !important; 
+  color: var(--primary);
+}
+
+.swal2-input {
+  background-color: var(--input-background) !important;
+  color: var(--input-color) !important;
+}
+
+.swal2-input::placeholder {
+  color: var(--input-icon) !important;
+}
+
+.swal2-validation-message {
+  color: var(--is-invalid-color) !important;
+}
+
+.swal2-loader {
+  border-top-color: var(--primary) !important;
 }

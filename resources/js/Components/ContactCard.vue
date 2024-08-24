@@ -40,9 +40,9 @@ const navigateToContact = () => {
   flex-direction: row;
   padding: 0px 10px;
   margin-bottom: 20px;
-  background: #FFFFFF;
-  border: 1.5px solid rgba(67, 67, 67, 0.15);
-  box-shadow: -1px -1px 30px rgba(73, 73, 73, 0.08);
+  background: var(--card-background);
+  border: var(--card-border);
+  box-shadow: -1px -1px 30px rgba(131, 131, 131, 0.08);
   border-radius: 12px;
   cursor: pointer;
   text-decoration: none;
@@ -59,7 +59,7 @@ const navigateToContact = () => {
 .contact-icon {
   min-width: 50px;
   min-height: 50px;
-  background-color: #e9ecef;
+  background-color: var(--contact-icon);
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -67,7 +67,7 @@ const navigateToContact = () => {
 }
 .contact-icon i {
   font-size: 24px;
-  color: #6c757d;
+  color:  var(--contact-icon-i);
 }
 
 .card-body {
@@ -81,11 +81,12 @@ const navigateToContact = () => {
   font-size: 18px;
   font-weight: bold;
   margin: 0;
+  color: var();
 }
 
 .card-text {
   font-size: 14px;
-  color: #666;
+  color: var(--card-text);
   margin-top: 4px;
   white-space: nowrap;
   overflow: hidden;

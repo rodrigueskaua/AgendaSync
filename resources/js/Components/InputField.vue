@@ -73,12 +73,12 @@ function updateValue(value) {
 .form-group>.form-control {
   height: 55px;
   padding: 8px 8px 8px 16px;
-  font-size: 14px;
+  font-size: 16px;
   border-color: transparent;
   box-shadow: none;
-  background-color: #F3F3F3;
+  background-color: var(--input-background);
   border-radius: 6px;
-  color: #808080c2;
+  color: var(--input-color);
   transition: border-color 0.3s linear;
 }
 
@@ -115,7 +115,7 @@ function updateValue(value) {
 }
 
 .is-invalid {
-  border-color: #f44336b2!important;
+  border-color: var(--is-invalid-color)!important;
 }
 
 </style>
