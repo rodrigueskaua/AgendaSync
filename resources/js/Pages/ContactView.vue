@@ -20,7 +20,7 @@
           <p class="btn-text">Ligar</p>
         </div>
         <div class="btn-wrapper">
-          <button class="btn btn-secondary" @click="emailUser">
+          <button class="btn btn-primary" @click="emailUser">
             <i class='bx bx-envelope'></i>
           </button>
           <p class="btn-text">Enviar Email</p>
@@ -30,6 +30,12 @@
             <i class='bx bx-edit'></i>
           </button>
           <p class="btn-text">Editar</p>
+        </div>
+        <div class="btn-wrapper">
+          <button class="btn btn-outline-danger" @click="deleteUser">
+            <i class='bx bx-trash'></i>
+          </button>
+          <p class="btn-text">Apagar</p>
         </div>
       </div>
     </div>
@@ -66,6 +72,7 @@
 import { Inertia } from '@inertiajs/inertia';
 import Navbar from '@/Components/Navbar.vue';
 import { ref, defineProps, onMounted } from 'vue';
+import Swal from 'sweetalert2';
 
 const props = defineProps({
   contact: {
@@ -115,6 +122,23 @@ function emailUser() {
 function editUser() {
   console.log(contact)
   Inertia.visit(route('contact.edit', {id: contact.value.id,}));
+}
+
+function deleteUser() {
+  Swal.fire({
+    title: 'Você tem certeza?',
+    text: 'Esta ação não pode ser desfeita!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, Apagar!',
+    cancelButtonText: 'Cancelar',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Inertia.delete(route('contact.destroy', { id: contact.value.id }))
+    }
+  });
 }
 </script>
 
@@ -267,6 +291,19 @@ function editUser() {
 
 .btn-outline-primary:hover {
   background-color: var(--primary-dark);
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline-danger {
+  background-color: transparent;
+  color: var(--primary-dark);
+  border: 2px solid var(--primary-dark);
+}
+
+.btn-outline-danger:hover {
+  background-color: #db140d;
+  border: 2px solid #db140d;
   color: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
