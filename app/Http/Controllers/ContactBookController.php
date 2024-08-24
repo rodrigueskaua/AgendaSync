@@ -65,6 +65,7 @@ class ContactBookController extends Controller
       'email' => $request->email,
       'phone' => $request->phone,
       'address' => $request->address,
+      'user_id' => auth()->id()
     ]);
 
     return redirect()->route('contact.show', ['id' => $contact->id]);
