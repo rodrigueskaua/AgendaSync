@@ -1,6 +1,9 @@
 <template>
   <div class="card contact-card" @click="navigateToContact">
-    <div class="contact-icon" v-if="isAlphabetic(contactName)">
+    <div class="contact-icon"
+    :style="{ backgroundColor: generateColor(contactName) }"
+    :data-contact-name="contactName" 
+    v-if="isAlphabetic(contactName)">
       <span>{{ getInitials(contactName) }}</span>
     </div>
     <div class="contact-icon" v-else>
@@ -14,6 +17,8 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
 const props = defineProps({
   contactName: {
     type: String,
@@ -46,6 +51,20 @@ function getInitials(name) {
   }
   return nameParts[0].charAt(0).toUpperCase() + nameParts[1].charAt(0).toUpperCase();
 }
+
+const isDarkMode = ref(document.body.getAttribute('data-bs-theme') === 'dark');
+
+const generateColor = (name) => {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const hue = Math.abs(hash) % 360;
+  const saturation = isDarkMode.value ? 20 + (Math.abs(hash) % 20) : 60 + (Math.abs(hash) % 20);
+  const lightness = isDarkMode.value ? 30 + (Math.abs(hash) % 10) : 70 + (Math.abs(hash) % 20);
+  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+};
+
 </script>
 
 <style scoped>
