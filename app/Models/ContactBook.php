@@ -17,10 +17,11 @@ class ContactBook extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'name',
-        'email',
-        'phone',
-        'address',
+      'name',
+      'email',
+      'phone',
+      'address',
+      'user_id',
     ];
 
     protected static function boot()
