@@ -17,7 +17,9 @@ class ContactBookController extends Controller
     $successMessage = Session::get('successMessage');
     Session::forget('successMessage');
     
-    $contacts = ContactBook::where('user_id', auth()->id())->get();
+    $contacts = ContactBook::where('user_id', auth()->id())
+    ->orderBy('name', 'asc')
+    ->get();
     
     return Inertia::render('Home', [
       'contacts' => $contacts,
