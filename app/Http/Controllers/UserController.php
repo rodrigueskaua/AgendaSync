@@ -42,9 +42,7 @@ class UserController extends Controller
       'password' => Hash::make($request->password),
     ]);
 
-    return Inertia::render('Sucess', [
-      'message' => 'Usuário cadastrado com sucesso',
-    ]);
+    return redirect()->intended(route('login'));
   }
   
   public function login(Request $request)
