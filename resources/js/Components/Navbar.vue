@@ -14,7 +14,7 @@
           <ul class="navbar-nav">
             <NavLink :href="route('home')" text="Home" icon="bx-home" />
             <NavLink :href="route('contact.create')" text="Criar Contato" icon="bx-folder-plus" />
-            <NavLink href="route('profile')" text="Perfil" icon="bx-user" />
+            <NavLink :href="route('user.index')" text="Perfil" icon="bx-user" />
             <DarkModeToggle />
             <NavLink :href="route('user.logout')" text="Sair | Logout" icon="bx-log-out-circle" />
           </ul>

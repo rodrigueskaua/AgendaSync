@@ -1,25 +1,60 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { ref,computed } from 'vue';
 
-const formData = useForm({
-  name: '',
-  email: '',
+const props = defineProps({
+  user: {
+    type: Object,
+    default: () => ({
+      id: null,
+      name: '',
+      email: '',
+      password: '',
+      password_confirmation: ''
+    }),
+  },
+});
+
+console.log(props.user)
+
+const user = useForm({
+  id: props.user?.id || '',
+  name: props.user?.name || '',
+  email: props.user?.email || '',
   password: '',
   password_confirmation: '',
 });
-
+const loading = ref(false);
 const errors = ref({});
 
-const createUser = () => {
-  formData.post(route('user.create'), {
-    onSuccess: () => {
-      errors.value = {};
-    },
-    onError: (validationErrors) => {
-      errors.value = validationErrors;
-    },
-  });
+const isEditing = computed(() => props.user.id !== undefined && props.user.id !== null);
+
+const submitForm = () => {
+  loading.value = true;
+
+  if (isEditing.value) {
+    user.put(route('user.update', { id: user.id }), {
+      onSuccess: () => {
+        errors.value = {};
+        loading.value = false;
+      },
+      onError: (validationErrors) => {
+        errors.value = validationErrors;
+        loading.value = false;
+      },
+    });
+  } else {
+    user.post(route('user.create'), {
+      onSuccess: () => {
+        errors.value = {};
+        loading.value = false;
+      },
+      onError: (validationErrors) => {
+        errors.value = validationErrors;
+        loading.value = false;
+      },
+    });
+  }
 };
 </script>
 
@@ -27,16 +62,16 @@ const createUser = () => {
   <div class="container d-flex justify-content-center align-items-sm-center align-items-start vh-100 mt-sm-0 mt-3">
     <div class="card-login-register card-register">
       <div class="brand mb-4 d-flex justify-content-center align-items-center">
-        <h3>AgendaSync</h3>
+        <h3>{{ isEditing ? 'Editar Usuário' : 'AgendaSync' }}</h3>
       </div>
   
-      <form class="form" @submit.prevent="createUser" method="post">
+      <form class="form" @submit.prevent="submitForm" method="post">
         <InputField
           label="Nome"
           type="text"
           name="name"
           placeholder="Digite seu Nome"
-          v-model="formData.name"
+          v-model="user.name"
           :errorMessage="errors.name"
           :invalid="!!errors.name"
           required
@@ -47,7 +82,7 @@ const createUser = () => {
           type="email"
           name="email"
           placeholder="Digite seu Email"
-          v-model="formData.email"
+          v-model="user.email"
           :errorMessage="errors.email"
           :invalid="!!errors.email"
           required
@@ -58,7 +93,7 @@ const createUser = () => {
           type="password"
           name="password"
           placeholder="Digite sua Senha"
-          v-model="formData.password"
+          v-model="user.password"
           :errorMessage="errors.password"
           :invalid="!!errors.password"
           required
@@ -69,19 +104,19 @@ const createUser = () => {
           type="password"
           name="password_confirmation"
           placeholder="Digite sua Senha novamente"
-          v-model="formData.password_confirmation"
+          v-model="user.password_confirmation"
           :errorMessage="errors.password_confirmation"
           :invalid="!!errors.password_confirmation"
           required
         />
   
         <div class="form-buttons mb-4">
-          <button type="submit" class="btn-register">Cadastre-se</button>
+          <button type="submit" class="btn-register">{{ isEditing ? 'Editar' : 'Cadastre-se' }}</button>
         </div>
       </form>
   
-      <div class="sign-in text-center">
-        <p>Já possui uma conta? <a :href="route('login') ">Faça Login</a></p>
+      <div v-if="!isEditing" class="sign-in text-center">
+        <p>Já possui uma conta? <a :href="route('login')">Faça Login</a></p>
       </div>
     </div>
   </div>

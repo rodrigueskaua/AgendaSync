@@ -93,6 +93,7 @@ function showTemporaryAlert(message) {
 }
 
 function editUser() {
+  Inertia.visit(route('user.edit'));
 }
 
 function deleteUser() {
