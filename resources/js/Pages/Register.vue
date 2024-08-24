@@ -15,8 +15,6 @@ const props = defineProps({
   },
 });
 
-console.log(props.user)
-
 const user = useForm({
   id: props.user?.id || '',
   name: props.user?.name || '',
