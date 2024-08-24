@@ -168,8 +168,8 @@ class UserController extends Controller
       if (!$user) {
           $new_user = User::create([
               'name' => $google_user->getName(),
+              'email' => $google_user->getEmail(),
               'google_id' => $google_user->getId(),
-              'email' => $google_user->getEmail()
           ]);
           Auth::login($new_user);
 
