@@ -12,11 +12,11 @@
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav">
-            <NavLink href="#" text="Home" icon="bx-home" />
-            <NavLink href="#" text="Sobre" icon="bx-user" />
-            <NavLink href="#" text="Configurações" icon="bx-cog" />
-            <NavLink href="#" text="Contato" icon="bx-envelope" />
-            <NavLink :href="route('user.logout') "text="Sair | Logout" icon="bx-log-out-circle" />
+            <NavLink :href="route('home')" text="Home" icon="bx-home" />
+            <NavLink :href="route('contact.create')" text="Criar Contato" icon="bx-folder-plus" />
+            <NavLink href="route('profile')" text="Perfil" icon="bx-user" />
+            <DarkModeToggle />
+            <NavLink :href="route('user.logout')" text="Sair | Logout" icon="bx-log-out-circle" />
           </ul>
         </div>
       </div>
@@ -28,6 +28,8 @@
 
 <script setup>
 import NavLink from '@/Components/NavLink.vue';
+import DarkModeToggle from '@/Components/DarkModeToggle.vue';
+
 </script>
 
 <style scoped>
