@@ -1,7 +1,12 @@
 <template>
   <nav class="navbar bg-body-tertiary fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">AgendaSync</a>
+      <button class="navbar-toggler d-md-none" type="button" @click="goBack">
+        <i class='bx bx-arrow-back'></i>
+      </button>
+      
+      <a class="navbar-brand d-none d-md-block" :href="route('home')">AgendaSync</a>
+      
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -30,6 +35,9 @@
 import NavLink from '@/Components/NavLink.vue';
 import DarkModeToggle from '@/Components/DarkModeToggle.vue';
 
+function goBack() {
+  window.history.back()
+}
 </script>
 
 <style scoped>
@@ -38,11 +46,24 @@ import DarkModeToggle from '@/Components/DarkModeToggle.vue';
 }
 
 .navbar .navbar-brand {
+  font-size: 22px;
+  font-weight: 500;
   color: var(--black);
+  transition: color 0.3s ease;
+}
+
+.navbar .navbar-brand:hover {
+  color: var(--gray-2);
 }
 
 .navbar .navbar-toggler {
   border-color: transparent!important; 
+}
+
+.navbar .navbar-toggler i{
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--black);
 }
 
 .content-spacer{
