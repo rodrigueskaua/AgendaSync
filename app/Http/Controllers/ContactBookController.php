@@ -9,6 +9,7 @@ use App\Models\ContactBook;
 use Inertia\Inertia;
 use Session;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
 
 class ContactBookController extends Controller
 {
@@ -46,18 +47,34 @@ class ContactBookController extends Controller
 
   public function create(Request $request)
   {
+    $userId = auth()->user()->id;
+
     $validator = Validator::make($request->all(), [
       'name' => 'required|string|max:255',
-      'email' => 'required|string|email|max:255|unique:contact_books,email',
-      'phone' => 'nullable|string|unique:contact_books,phone',
+      'email' => [
+          'required',
+          'string',
+          'email',
+          'max:255',
+          Rule::unique('contact_books')->where(function ($query) use ($userId) {
+              return $query->where('user_id', $userId);
+          }),
+      ],
+      'phone' => [
+          'nullable',
+          'string',
+          Rule::unique('contact_books')->where(function ($query) use ($userId) {
+              return $query->where('user_id', $userId);
+          }),
+      ],
       'address' => 'nullable|string',
-    ], [
-      'name.required' => 'O nome é obrigatório.',
-      'name.max' => 'O nome deve ter no máximo 255 caracteres.',
-      'email.email' => 'O e-mail deve ser um endereço válido.',
-      'email.unique' => 'Já existe um contato cadastrado com esse e-mail.',
-      'phone.unique' => 'Já existe um contato cadastrado com esse telefone.',
-      'address.string' => 'O endereço deve ser um texto.',
+      ], [
+          'name.required' => 'O nome é obrigatório.',
+          'name.max' => 'O nome deve ter no máximo 255 caracteres.',
+          'email.email' => 'O e-mail deve ser um endereço válido.',
+          'email.unique' => 'Já existe um contato cadastrado com esse e-mail.',
+          'phone.unique' => 'Já existe um contato cadastrado com esse telefone.',
+          'address.string' => 'O endereço deve ser um texto.',
     ]);
 
     if ($validator->fails()) {
@@ -97,19 +114,34 @@ class ContactBookController extends Controller
   
   public function update(Request $request)
   {
+    $userId = auth()->user()->id;
+    
     $validator = Validator::make($request->all(), [
-        'id' => 'required|exists:contact_books,id',
-        'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:contact_books,email,' . $request->id,
-        'phone' => 'nullable|string|unique:contact_books,phone,' . $request->id,
-        'address' => 'nullable|string',
-    ], [
-        'name.required' => 'O nome é obrigatório.',
-        'name.max' => 'O nome deve ter no máximo 255 caracteres.',
-        'email.email' => 'O e-mail deve ser um endereço válido.',
-        'email.unique' => 'Já existe um contato cadastrado com esse e-mail.',
-        'phone.unique' => 'Já existe um contato cadastrado com esse telefone.',
-        'address.string' => 'O endereço deve ser um texto.',
+      'name' => 'required|string|max:255',
+      'email' => [
+          'required',
+          'string',
+          'email',
+          'max:255',
+          Rule::unique('contact_books')->where(function ($query) use ($userId) {
+              return $query->where('user_id', $userId);
+          }),
+      ],
+      'phone' => [
+          'nullable',
+          'string',
+          Rule::unique('contact_books')->where(function ($query) use ($userId) {
+              return $query->where('user_id', $userId);
+          }),
+      ],
+      'address' => 'nullable|string',
+      ], [
+          'name.required' => 'O nome é obrigatório.',
+          'name.max' => 'O nome deve ter no máximo 255 caracteres.',
+          'email.email' => 'O e-mail deve ser um endereço válido.',
+          'email.unique' => 'Já existe um contato cadastrado com esse e-mail.',
+          'phone.unique' => 'Já existe um contato cadastrado com esse telefone.',
+          'address.string' => 'O endereço deve ser um texto.',
     ]);
 
     if ($validator->fails()) {
