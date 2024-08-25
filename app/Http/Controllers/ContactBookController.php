@@ -115,7 +115,6 @@ class ContactBookController extends Controller
   public function update(Request $request)
   {
     $userId = auth()->user()->id;
-    
     $validator = Validator::make($request->all(), [
       'name' => 'required|string|max:255',
       'email' => [
@@ -123,14 +122,16 @@ class ContactBookController extends Controller
           'string',
           'email',
           'max:255',
-          Rule::unique('contact_books')->where(function ($query) use ($userId) {
+          Rule::unique('contact_books')->ignore($request->id)
+          ->where(function ($query) use ($userId) {
               return $query->where('user_id', $userId);
           }),
       ],
       'phone' => [
           'nullable',
           'string',
-          Rule::unique('contact_books')->where(function ($query) use ($userId) {
+          Rule::unique('contact_books')->ignore($request->id)
+          ->where(function ($query) use ($userId) {
               return $query->where('user_id', $userId);
           }),
       ],
@@ -147,6 +148,7 @@ class ContactBookController extends Controller
     if ($validator->fails()) {
         return Inertia::render('ContactCreate', [
             'errors' => $validator->errors(),
+            'contact' => $request->all()
         ]);
     }
     
